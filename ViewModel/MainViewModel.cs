@@ -3,17 +3,23 @@ using LiveCharts.Geared;
 using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using TestLiveChart.Command;
 
 namespace TestLiveChart.ViewModel
 {
     public class MainViewModel:ViewModelBase
     {
-
+        #region Declarations
         private SeriesCollection _seriesCollection;
+        #endregion
+
+        #region Property
         public SeriesCollection SeriesCollection
         {
             get { return _seriesCollection; }
@@ -23,12 +29,37 @@ namespace TestLiveChart.ViewModel
                 OnPropertyChanged();
             }
         }
+        
+        public ICommand AddPointButtonClickCommand
+        {
+            get { return new RelayCommand(AddPointButtonClickCommandAction); }
+        }
 
+        private void AddPointButtonClickCommandAction(object obj)
+        {
+            var parameter = int.Parse(obj.ToString());
+            
+            List<object> temp = new List<object>();
+            IEnumerable<object> list = new List<object>();
+            Random rd = new Random();
+            for (int i = 1; i < parameter; i++)
+            {
+                temp.Add(rd.NextDouble());
+            }
+            list = temp.ToList<object>();
+            SeriesCollection[0].Values.AddRange(list);
+        }
+        #endregion
+
+        #region Memberfunction
+        /// <summary>
+        /// 
+        /// </summary>
         public MainViewModel()
         {
             Random rd = new Random();
             double[] array = new double[1000];
-            for(int i = 0; i < 1000; i++)
+            for (int i = 0; i < 1000; i++)
             {
                 array[i] = rd.NextDouble();
             }
@@ -45,10 +76,13 @@ namespace TestLiveChart.ViewModel
 
             //Thread th = new Thread(AddPoint);
             //th.Start();
-            Task.Run(() => AddPoint());
+            //Task.Run(() => AddPoint());
 
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void AddPoint()
         {
             ////case1
@@ -82,5 +116,6 @@ namespace TestLiveChart.ViewModel
             }
 
         }
+        #endregion
     }
 }

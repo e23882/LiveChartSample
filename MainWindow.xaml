@@ -12,8 +12,10 @@
             <RowDefinition Height="100"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <!--<lvc:CartesianChart Grid.Row="1" Zoom="X" DisableAnimations="True" Hoverable="True" Series="{Binding SeriesCollection}">
-           
-        </lvc:CartesianChart>-->
+        <StackPanel Grid.Row="0">
+            <Button Content="Add 100000 Point" Command="{Binding AddPointButtonClickCommand}" CommandParameter="100000"/>
+            <Button Content="Add 1000000 Point" Command="{Binding AddPointButtonClickCommand}" CommandParameter="1000000"/>
+        </StackPanel>
+        <lvc:CartesianChart Grid.Row="1" Zoom="X" DisableAnimations="True" Hoverable="True" Series="{Binding SeriesCollection}"/>
     </Grid>
 </Window>
