@@ -11,11 +11,16 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0">
+            <Button Content="Add 100 Point" Command="{Binding AddPointButtonClickCommand}" CommandParameter="100"/>
+            <Button Content="Add 1000 Point" Command="{Binding AddPointButtonClickCommand}" CommandParameter="1000"/>
+            <Button Content="Add 10000 Point" Command="{Binding AddPointButtonClickCommand}" CommandParameter="10000"/>
             <Button Content="Add 100000 Point" Command="{Binding AddPointButtonClickCommand}" CommandParameter="100000"/>
             <Button Content="Add 1000000 Point" Command="{Binding AddPointButtonClickCommand}" CommandParameter="1000000"/>
         </StackPanel>
         <lvc:CartesianChart Grid.Row="1" Zoom="X" DisableAnimations="True" Hoverable="True" Series="{Binding SeriesCollection}"/>
+        <lvc:CartesianChart Grid.Row="2" Zoom="X" DisableAnimations="True" Hoverable="False" Series="{Binding NormalSeriesCollection}"/>
     </Grid>
 </Window>

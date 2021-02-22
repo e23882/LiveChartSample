@@ -17,9 +17,24 @@ namespace TestLiveChart.ViewModel
     {
         #region Declarations
         private SeriesCollection _seriesCollection;
+        private SeriesCollection _normalSeriesCollection;
+        //private ChartValues<double> _NormalSeriesCollection = new ChartValues<double>() { 1,2,3,4,5};
         #endregion
 
         #region Property
+        //public ChartValues<double> NormalSeriesCollection
+        //{
+        //    get
+        //    {
+        //        return _NormalSeriesCollection;
+        //    }
+        //    set
+        //    {
+        //        _NormalSeriesCollection = value;
+        //        OnPropertyChanged();
+        //    }
+        //}
+
         public SeriesCollection SeriesCollection
         {
             get { return _seriesCollection; }
@@ -29,7 +44,17 @@ namespace TestLiveChart.ViewModel
                 OnPropertyChanged();
             }
         }
-        
+
+        public SeriesCollection NormalSeriesCollection
+        {
+            get { return _normalSeriesCollection; }
+            set
+            {
+                _normalSeriesCollection = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ICommand AddPointButtonClickCommand
         {
             get { return new RelayCommand(AddPointButtonClickCommandAction); }
@@ -48,6 +73,7 @@ namespace TestLiveChart.ViewModel
             }
             list = temp.ToList<object>();
             SeriesCollection[0].Values.AddRange(list);
+            NormalSeriesCollection[0].Values.AddRange(list);
         }
         #endregion
 
@@ -74,6 +100,15 @@ namespace TestLiveChart.ViewModel
                 series
             };
 
+            var normalSeries = new LineSeries()
+            {
+                Values = new ChartValues<double>() { 1, 2, 3, 4, 5 }
+            };
+            NormalSeriesCollection = new SeriesCollection
+            {
+                normalSeries
+            };
+            
             //Thread th = new Thread(AddPoint);
             //th.Start();
             //Task.Run(() => AddPoint());
@@ -112,6 +147,7 @@ namespace TestLiveChart.ViewModel
                 }
                 list = temp.ToList<object>();
                 SeriesCollection[0].Values.AddRange(list);
+                NormalSeriesCollection[0].Values.AddRange(list);
                 Thread.Sleep(1000);
             }
 
